@@ -1,0 +1,42 @@
+.comment-write {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.comment-write input {
+  flex: 1;
+  padding: 14px;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  font-size: 15px;
+
+  outline: none;
+}
+
+.comment-write input:focus {
+  border-color: #2e8b57;
+}
+
+.comment-write button {
+  width: 90px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #2e8b57;
+  color: white;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.comment-write button:hover {
+  background: #246b45;
+}

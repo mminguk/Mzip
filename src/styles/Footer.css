@@ -1,0 +1,78 @@
+.footer {
+  margin-top: 80px;
+  background: gray;
+  color: white;
+}
+
+.footer-container {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 45px 0;
+}
+
+.footer-top {
+  text-align: center;
+
+  margin-bottom: 30px;
+}
+
+.footer-logo {
+  font-family: 'Bangers', sans-serif;
+  font-size: 3rem;
+  color: pink;
+  margin-bottom: 10px;
+}
+
+.footer-description {
+  font-size: 15px;
+}
+
+.footer-info {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 35px;
+
+  margin-bottom: 30px;
+
+  flex-wrap: wrap;
+}
+
+.footer-info p {
+  font-size: 15px;
+}
+
+.footer-menu {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 40px;
+
+  margin-bottom: 30px;
+}
+
+.footer-menu a {
+  color: white;
+
+  text-decoration: none;
+
+  transition: 0.2s;
+}
+
+.footer-menu a:hover {
+  color: #ffd54f;
+}
+
+.footer-bottom {
+  text-align: center;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+  padding-top: 20px;
+
+  font-size: 14px;
+
+  color: #ddeedf;
+}

@@ -1,0 +1,22 @@
+.card {
+  height: 25rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: gray;
+}
+
+.card .image {
+  height: 180px;
+  background: #ddd;
+}
+
+.card h3 {
+  margin: 15px;
+}
+
+.card p {
+  margin: 0 15px 15px;
+}

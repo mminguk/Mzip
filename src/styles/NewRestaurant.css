@@ -1,0 +1,202 @@
+/* report.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Pretendard', sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+/* ================= Layout ================= */
+
+.report-page {
+  min-height: 100vh;
+}
+
+.report-container {
+  width: 700px;
+  margin: 40px auto;
+  padding: 40px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.report-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* ================= Form ================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 1px solid #d9d9d9;
+
+  border-radius: 8px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.2s;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #2e8b57;
+
+  box-shadow: 0 0 5px rgba(46, 139, 87, 0.2);
+}
+
+/* ================= Image Upload ================= */
+
+.image-limit {
+  margin-left: 8px;
+
+  color: #888;
+
+  font-size: 13px;
+
+  font-weight: normal;
+}
+
+.upload-box {
+  width: 120px;
+
+  height: 120px;
+
+  border: 2px dashed #bdbdbd;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 42px;
+
+  color: #888;
+
+  transition: 0.2s;
+
+  margin-bottom: 20px;
+}
+
+.upload-box:hover {
+  border-color: #2e8b57;
+
+  color: #2e8b57;
+
+  background: #f7fffa;
+}
+
+.preview-list {
+  display: flex;
+
+  gap: 15px;
+
+  flex-wrap: wrap;
+}
+
+.preview-item {
+  width: 120px;
+
+  height: 120px;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  border: 1px solid #ddd;
+}
+
+.preview-item img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* ================= Buttons ================= */
+
+.button-group {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+
+  margin-top: 35px;
+}
+
+.next-btn,
+.cancel-btn {
+  width: 110px;
+  height: 46px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.next-btn {
+  text-align: center;
+  text-decoration: none;
+  background: #2e8b57;
+  color: white;
+}
+
+.next-btn:hover {
+  background: #246b45;
+}
+
+.cancel-btn {
+  background: #ececec;
+
+  color: #444;
+}
+
+.cancel-btn:hover {
+  background: #d9d9d9;
+}
+
+.form-group .description {
+  resize: none;
+  height: 10rem;
+}
