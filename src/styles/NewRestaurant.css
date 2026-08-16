@@ -200,3 +200,9 @@ body {
   resize: none;
   height: 10rem;
 }
+
+.upload-img-preview {
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: cover;
+}

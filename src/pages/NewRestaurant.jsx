@@ -1,29 +1,49 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/UI/Header';
 import '../styles/NewRestaurant.css';
 
 export default function NewRestaurant() {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState('');
   const navigate = useNavigate();
+
+  function handleFileChange(event) {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+    setSelectedFile(file);
+    setPreviewUrl(URL.createObjectURL(file));
+  }
 
   async function submitHandler(event) {
     event.preventDefault();
     const body = event.target;
 
-    const response = await fetch('http://localhost:3000/new-restaurant', {
-      method: 'POST',
-      body: JSON.stringify({
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+
+    const data = JSON.stringify({
         title: body.title.value,
         address: body.address.value,
         tel: body.tel.value,
         description: body.description.value,
         businessHour: body.businessHour.value,
         userid: Math.floor(Math.random()),
-      }),
-      headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+    const response = await fetch('http://localhost:3000/new-restaurant', {
+      method: 'POST',
+      body: {
+        data, 
+        formData
+      }
     });
 
     await response.json();
+    console.log();
   }
 
   return (
@@ -84,7 +104,7 @@ export default function NewRestaurant() {
           <div className="form-group">
             <label>이미지</label>
 
-            <label htmlFor="image" className="upload-box">
+            {!previewUrl && <><label htmlFor="image" className="upload-box">
               +
             </label>
 
@@ -93,8 +113,17 @@ export default function NewRestaurant() {
               id="image"
               name="image"
               accept="image/*"
+              onChange={handleFileChange}
               hidden
             />
+            </>}
+            {previewUrl && <>
+              <img 
+                src={previewUrl} 
+                alt="업로드 이미지 미리보기" 
+                className="upload-img-preview" 
+              />
+            </>}
           </div>
 
           <div className="form-group">
@@ -104,6 +133,7 @@ export default function NewRestaurant() {
               className="description"
               name="description"
               id="description"
+              placeholder='가게에 대한 설명을 작성해주세요...'
             ></textarea>
           </div>
 
