@@ -12,6 +12,10 @@
   height: 180px;
   background: #ddd;
 }
+.image img {
+  width: 100%;
+  max-height: 180px;
+}
 
 .card h3 {
   margin: 15px;

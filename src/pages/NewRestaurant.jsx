@@ -23,27 +23,31 @@ export default function NewRestaurant() {
     const body = event.target;
 
     const formData = new FormData();
+
+    formData.append('title', body.title.value);
+    formData.append('address', body.address.value);
+    formData.append('tel', body.tel.value);
+    formData.append('description', body.description.value);
+    formData.append('businessHour', body.businessHour.value);
+    formData.append('userid', Math.floor(Math.random() + 1));
+
     formData.append('image', selectedFile);
 
-    const data = JSON.stringify({
-        title: body.title.value,
-        address: body.address.value,
-        tel: body.tel.value,
-        description: body.description.value,
-        businessHour: body.businessHour.value,
-        userid: Math.floor(Math.random()),
-      });
-
+    // const data = JSON.stringify({
+    //     title: body.title.value,
+    //     address: body.address.value,
+    //     tel: body.tel.value,
+    //     description: body.description.value,
+    //     businessHour: body.businessHour.value,
+    //     userid: Math.floor(Math.random()),
+    //   });
+    console.log(Object.fromEntries(formData.entries()))
     const response = await fetch('http://localhost:3000/new-restaurant', {
       method: 'POST',
-      body: {
-        data, 
-        formData
-      }
+      body: formData
     });
 
     await response.json();
-    console.log();
   }
 
   return (

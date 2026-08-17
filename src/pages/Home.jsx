@@ -42,6 +42,7 @@ function Home() {
             key={restaurant.id}
             title={restaurant.title}
             address={restaurant.address}
+            imagePath={restaurant.imagePath}
             id={restaurant.id}
           />
         ))}

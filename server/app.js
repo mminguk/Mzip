@@ -8,8 +8,8 @@ const postsRoute = require('./routes/posts');
 const commentsRoute = require('./routes/comments');
 
 app.use(cors());
-app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static(path.join(__dirname, '/public')));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(postsRoute);

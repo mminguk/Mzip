@@ -22,16 +22,14 @@ router.post(
   async function (req, res) {
     const restaurant = req.body;
     const imagePath = `http://localhost:3000/public/${req.file.filename}`;
-
     const [result] = await pool.query(
-      'INSERT INTO posts(title, address, tel, description, businessHour, image,imagePath, userid) VALUES(?,?,?,?,?,?,?)',
+      'INSERT INTO posts(title, address, tel, description, businessHour,imagePath, userid) VALUES(?,?,?,?,?,?,?)',
       [
         restaurant.title,
         restaurant.address,
         restaurant.tel,
         restaurant.description,
         restaurant.businessHour,
-        req.file,
         imagePath,
         restaurant.userid,
       ],
