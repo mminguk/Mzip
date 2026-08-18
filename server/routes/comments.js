@@ -4,10 +4,7 @@ const pool = require('../data/database');
 
 const router = express.Router();
 
-router.get('/comment', async function (req, res) {
-  const [result] = await pool.query('SELECT * FROM comments');
-  res.status(201).json(result);
-});
+router.get('/comment', async function (req, res) {});
 
 router.post('/comment', async function (req, res) {
   if (req.body.text.trim().length === 0) {
