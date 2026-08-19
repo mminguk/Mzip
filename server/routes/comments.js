@@ -4,7 +4,17 @@ const pool = require('../data/database');
 
 const router = express.Router();
 
-router.get('/comment', async function (req, res) {});
+router.get('/comment', async function (req, res) {
+  const [result] = await pool.query(
+    `
+    SELECT text
+    FROM comments LEFT JOIN posts ON comments.postid = posts.id
+    WHERE posts.id = ?
+  `,
+    [],
+  );
+  res.status(201).json(result);
+});
 
 router.post('/comment', async function (req, res) {
   if (req.body.text.trim().length === 0) {
