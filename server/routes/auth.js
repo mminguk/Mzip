@@ -9,38 +9,40 @@ router.get('/login', function (req, res) {
   res.status(201).json({ message: '로그인 페이지 출력 완료!!' });
 });
 
-router.post('/login');
+// router.post('/login');
 
-router.get('/signup', function (req, res) {
-  res.status(201).json({ message: '회원가입 페이지 출력 완료!!' });
-});
+// router.get('/signup', function (req, res) {
+//   res.status(201).json({ message: '회원가입 페이지 출력 완료!!' });
+// });
 
-router.post('/signup', async function (req, res, next) {
+router.post('/signup', async function (req, res) {
   const email = req.body.email;
   const userId = req.body.userid;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
 
   const [existUser] = await pool.query(
-    `SELECT * FROM users WHERE email = ? and userid = ?`,
+    `SELECT * FROM users WHERE email = ? and userid=?`,
     [email, userId],
   );
-  console.log(existUser);
 
-  //   if (password !== confirmPassword) {
-  //     return next();
-  //   }
-  //   const encryptedPassword = await bcrypt.hash(password);
-  //   const [result] = await pool.query(
-  //     `INSERT INTO users(email, userid, password) VALUES(?,?,?)`,
-  //     [email, userId, encryptedPassword],
-  //   );
+  if (existUser.length > 0) {
+    return res.status(500).json({ message: '이미 존재하는 유저입니다.' });
+  }
 
-  //   const rows = await pool.query(`SELECT * FROM users WHERE id = ?`, [
-  //     result.insertId,
-  //   ]);
+  if (password !== confirmPassword) {
+    return res.status(500).json({ message: '비밀번호가 일치하지 않습니다!' });
+  }
 
-  //   res.status(201).json(rows[0]);
+  const encryptPassword = await bcrypt.hash(password, 10);
+  const [result] = await pool.query(
+    `INSERT INTO users(userid, email, password) VALUES(?,?,?)`,
+    [userId, email, encryptPassword],
+  );
+  const [rows] = await pool.query(`SELECT * FROM users WHERE id=?`, [
+    result.insertId,
+  ]);
+  res.status(201).json(rows[0]);
 });
 
 module.exports = router;

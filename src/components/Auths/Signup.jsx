@@ -27,7 +27,7 @@ function Signup() {
 
           <h2 className="title">회원가입</h2>
 
-          <form onSubmit={submitHandler}>
+          <form action="/signup" onSubmit={submitHandler}>
             <div className="input-group">
               <label htmlFor="email">이메일</label>
               <input
@@ -35,6 +35,7 @@ function Signup() {
                 id="email"
                 name="email"
                 placeholder="이메일을 입력해주세요..."
+                required
               />
             </div>
 
@@ -45,6 +46,7 @@ function Signup() {
                 id="userid"
                 name="userid"
                 placeholder="아이디를 입력해주세요..."
+                required
               />
             </div>
 
@@ -55,6 +57,7 @@ function Signup() {
                 id="password"
                 name="password"
                 placeholder="비밀번호를 입력해주세요..."
+                required
               />
             </div>
 
@@ -65,11 +68,12 @@ function Signup() {
                 id="confirmPassword"
                 name="confirmPassword"
                 placeholder="비밀번호를 다시 입력해주세요..."
+                required
               />
             </div>
 
             <div className="agree">
-              <input type="checkbox" id="agree" />
+              <input type="checkbox" id="agree" required />
 
               <label htmlFor="agree">약관에 동의합니다.</label>
             </div>

@@ -6,6 +6,7 @@ const app = express();
 
 const postsRoute = require('./routes/posts');
 const commentsRoute = require('./routes/comments');
+const authRoute = require('./routes/auth');
 
 app.use(cors());
 app.use('/public', express.static(path.join(__dirname, '/public')));
@@ -14,5 +15,6 @@ app.use(express.json());
 
 app.use(postsRoute);
 app.use(commentsRoute);
+app.use(authRoute);
 
 app.listen(3000);
