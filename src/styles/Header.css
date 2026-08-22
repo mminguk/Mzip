@@ -27,7 +27,7 @@
   cursor: pointer;
 }
 
-.menu a {
+.menu button:last-child {
   text-decoration: none;
   padding: 10px 18px;
   border: none;

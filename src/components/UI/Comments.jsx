@@ -7,7 +7,7 @@ export default function Comments({ postid }) {
   const [comments, setComments] = useState([]);
 
   async function addComment(comment) {
-    const response = await fetch('http://localhost:3000/comment', {
+    const response = await fetch(`http://localhost:3000/comment/${postid}`, {
       method: 'POST',
       body: JSON.stringify({
         text: comment,
@@ -23,12 +23,9 @@ export default function Comments({ postid }) {
   }
 
   useEffect(() => {
-    async function fetchComment() {
-      const response = await fetch('http://localhost:3000/comment');
-      const responseData = await response.json();
-      setComments(responseData);
-    }
-    fetchComment();
+    fetch(`http://localhost:3000/comment/${postid}`)
+      .then((response) => response.json())
+      .then((data) => setComments(data));
   }, []);
   return (
     <section className="comment-section">

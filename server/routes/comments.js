@@ -4,19 +4,17 @@ const pool = require('../data/database');
 
 const router = express.Router();
 
-router.get('/comment', async function (req, res) {
+router.get('/comment/:id', async function (req, res) {
   const [result] = await pool.query(
     `
-    SELECT text
-    FROM comments LEFT JOIN posts ON comments.postid = posts.id
-    WHERE posts.id = ?
+    SELECT * FROM comments WHERE postid = ?
   `,
-    [],
+    [+req.params.id],
   );
   res.status(201).json(result);
 });
 
-router.post('/comment', async function (req, res) {
+router.post('/comment/:id', async function (req, res) {
   if (req.body.text.trim().length === 0) {
     console.log('리뷰를 작성해주세요');
     return;

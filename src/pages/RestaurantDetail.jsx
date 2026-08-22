@@ -22,19 +22,19 @@ function RestaurantDetail() {
       <Header />
 
       <main className="detail-container">
-          {restaurantData.map((item) => (
-        <section className="restaurant-info">
-          <div className="restaurant-image">
-            <img src={item.imagePath} alt={item.title} />
-          </div>
+        {restaurantData.map((item) => (
+          <section className="restaurant-info">
+            <div className="restaurant-image">
+              <img src={item.imagePath} alt={item.title} />
+            </div>
             <div className="restaurant-text" key={item.id}>
               <h2>{item.title}</h2>
               <p>{item.address}</p>
               <p>Tel.{item.tel}</p>
               <p>{item.businessHour}</p>
             </div>
-        </section>
-          ))}
+          </section>
+        ))}
 
         {/* 메뉴 */}
         {restaurantData.map((v) => (

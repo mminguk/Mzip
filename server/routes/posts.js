@@ -12,11 +12,7 @@ router.get('/', async function (req, res) {
 
 router.get('/restaurant/:id', async function (req, res) {
   const id = req.params.id;
-  const [result] = await pool.query(
-    `
-    SELECT * FROM posts WHERE id=?`,
-    [+id],
-  );
+  const [result] = await pool.query(`SELECT * FROM posts WHERE id=?`, [+id]);
   res.status(201).json(result);
 });
 
