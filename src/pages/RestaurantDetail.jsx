@@ -1,5 +1,4 @@
 import '../styles/RestaurantDetail.css';
-import Header from '../components/UI/Header';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Map from '../components/UI/Map';
@@ -19,8 +18,6 @@ function RestaurantDetail() {
 
   return (
     <div className="detail-page">
-      <Header />
-
       <main className="detail-container">
         {restaurantData.map((item) => (
           <section className="restaurant-info">

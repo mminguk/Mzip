@@ -1,5 +1,3 @@
-import Header from '../UI/Header';
-
 import '../../styles/Signup.css';
 
 function Signup() {
@@ -20,7 +18,6 @@ function Signup() {
 
   return (
     <>
-      <Header />
       <div className="signup-page">
         <div className="signup-box">
           <h1 className="logo">Mzip</h1>

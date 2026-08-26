@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Header from '../components/UI/Header';
 import '../styles/NewRestaurant.css';
 
 export default function NewRestaurant() {
@@ -41,10 +40,10 @@ export default function NewRestaurant() {
     //     businessHour: body.businessHour.value,
     //     userid: Math.floor(Math.random()),
     //   });
-    console.log(Object.fromEntries(formData.entries()))
+    console.log(Object.fromEntries(formData.entries()));
     const response = await fetch('http://localhost:3000/new-restaurant', {
       method: 'POST',
-      body: formData
+      body: formData,
     });
 
     await response.json();
@@ -52,7 +51,6 @@ export default function NewRestaurant() {
 
   return (
     <>
-      <Header />
       <form className="report-page" onSubmit={submitHandler}>
         <div className="report-container">
           <h2 className="report-title">제보하기</h2>
@@ -108,26 +106,31 @@ export default function NewRestaurant() {
           <div className="form-group">
             <label>이미지</label>
 
-            {!previewUrl && <><label htmlFor="image" className="upload-box">
-              +
-            </label>
+            {!previewUrl && (
+              <>
+                <label htmlFor="image" className="upload-box">
+                  +
+                </label>
 
-            <input
-              type="file"
-              id="image"
-              name="image"
-              accept="image/*"
-              onChange={handleFileChange}
-              hidden
-            />
-            </>}
-            {previewUrl && <>
-              <img 
-                src={previewUrl} 
-                alt="업로드 이미지 미리보기" 
-                className="upload-img-preview" 
-              />
-            </>}
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  hidden
+                />
+              </>
+            )}
+            {previewUrl && (
+              <>
+                <img
+                  src={previewUrl}
+                  alt="업로드 이미지 미리보기"
+                  className="upload-img-preview"
+                />
+              </>
+            )}
           </div>
 
           <div className="form-group">
@@ -137,7 +140,7 @@ export default function NewRestaurant() {
               className="description"
               name="description"
               id="description"
-              placeholder='가게에 대한 설명을 작성해주세요...'
+              placeholder="가게에 대한 설명을 작성해주세요..."
             ></textarea>
           </div>
 

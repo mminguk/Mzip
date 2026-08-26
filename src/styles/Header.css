@@ -19,7 +19,7 @@
   gap: 10px;
 }
 
-.menu button:first-child {
+.btn-alt {
   padding: 10px 18px;
   border: none;
   border-radius: 6px;
@@ -27,7 +27,7 @@
   cursor: pointer;
 }
 
-.menu button:last-child {
+.btn {
   text-decoration: none;
   padding: 10px 18px;
   border: none;

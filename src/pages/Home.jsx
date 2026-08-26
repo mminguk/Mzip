@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import '../styles/Home.css';
 
-import Header from '../components/UI/Header';
 import RestaurantCard from '../components/UI/RestaurantCard';
 
 function Home() {
@@ -18,8 +17,6 @@ function Home() {
   }, []);
   return (
     <>
-      <Header />
-
       <main className="container">
         {restaurants.map((restaurant) => (
           <RestaurantCard
