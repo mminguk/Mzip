@@ -5,32 +5,46 @@ const pool = require('../data/database');
 
 const router = express.Router();
 
-router.get('/login', function (req, res) {
-  res.json({ isAuth: req.session.isAuth });
+router.get('/auth', function (req, res) {
+  if (!req.session.user) {
+    return res.status(401).json({
+      message: '로그인되어 있지 않습니다.',
+    });
+  }
+
+  res.json({
+    user: req.session.user,
+  });
 });
 
 router.post('/login', async function (req, res) {
   const enteredId = req.body.userid;
   const enteredPassword = req.body.password;
 
-  const [existUser] = await pool.query(`SELECT * FROM users WHERE userid=?`, [
+  const [user] = await pool.query(`SELECT * FROM users WHERE userid=?`, [
     enteredId,
   ]);
 
-  if (!existUser[0]) {
+  if (user[0]) {
     return res.status(500).json({ message: '존재하지 않는 유저입니다.' });
   }
 
   const comparePassword = await bcrypt.compare(
     enteredPassword,
-    existUser[0].password,
+    user[0].password,
   );
 
   if (!comparePassword) {
     return res.status(500).json({ message: '비밀번호가 일치하지 않습니다!' });
   }
-  req.session.isAuth = true;
-  res.status(200).json({ message: '로그인 성공!!' });
+  req.session.user = {
+    id: user[0].userid,
+    email: user[0].email,
+  };
+  res.status(200).json({
+    message: '로그인 성공!!',
+    user: req.session.user,
+  });
 });
 
 router.post('/signup', async function (req, res) {
@@ -64,12 +78,14 @@ router.post('/signup', async function (req, res) {
 });
 
 router.post('/logout', function (req, res, next) {
-  try {
-    req.session.isAuth = req.body.isAuth;
-  } catch (error) {
-    return next(error);
-  }
-  res.redirect('/');
+  req.session.destroy((error) => {
+    if (error) {
+      return next(error);
+    }
+    res.clearCookie('connect.sid');
+
+    res.redirect('/');
+  });
 });
 
 module.exports = router;
