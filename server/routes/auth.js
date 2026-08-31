@@ -5,18 +5,6 @@ const pool = require('../data/database');
 
 const router = express.Router();
 
-router.get('/auth', function (req, res) {
-  if (!req.session.user) {
-    return res.status(401).json({
-      message: '로그인되어 있지 않습니다.',
-    });
-  }
-
-  res.json({
-    user: req.session.user,
-  });
-});
-
 router.post('/login', async function (req, res) {
   const enteredId = req.body.userid;
   const enteredPassword = req.body.password;
@@ -25,7 +13,7 @@ router.post('/login', async function (req, res) {
     enteredId,
   ]);
 
-  if (user[0]) {
+  if (!user[0]) {
     return res.status(500).json({ message: '존재하지 않는 유저입니다.' });
   }
 
@@ -37,13 +25,10 @@ router.post('/login', async function (req, res) {
   if (!comparePassword) {
     return res.status(500).json({ message: '비밀번호가 일치하지 않습니다!' });
   }
-  req.session.user = {
-    id: user[0].userid,
-    email: user[0].email,
-  };
-  res.status(200).json({
-    message: '로그인 성공!!',
-    user: req.session.user,
+  
+  res.status(200).cookie('userid', user[0].title, {
+    maxAge: 900000,
+    httpOnly: true
   });
 });
 
@@ -77,7 +62,7 @@ router.post('/signup', async function (req, res) {
   res.status(201).json(rows[0]);
 });
 
-router.post('/logout', function (req, res, next) {
+router.get('/logout', function (req, res, next) {
   req.session.destroy((error) => {
     if (error) {
       return next(error);

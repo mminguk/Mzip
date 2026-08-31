@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -18,18 +18,7 @@ app.use(
 app.use('/public', express.static(path.join(__dirname, '/public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(
-  session({
-    secret: 'Mzip-secret-key',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      sameSite: 'lax',
-      maxAge: 1000 * 60 * 60 * 24,
-    },
-  }),
-);
+app.use(cookieParser());
 
 app.use(postsRoute);
 app.use(commentsRoute);
