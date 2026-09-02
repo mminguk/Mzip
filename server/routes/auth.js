@@ -1,5 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const verifyToken = require('../middlewares/authMiddleware');
+require('dotenv').config();
+
+const secretKey = process.env.ACCESS_TOKEN_SECRET;
 
 const pool = require('../data/database');
 
@@ -25,11 +30,19 @@ router.post('/login', async function (req, res) {
   if (!comparePassword) {
     return res.status(500).json({ message: '비밀번호가 일치하지 않습니다!' });
   }
+  try {
+    const accessToken = jwt.sign(user[0], secretKey, {expiresIn: '30m'})
   
-  res.status(200).cookie('userid', user[0].title, {
-    maxAge: 900000,
-    httpOnly: true
-  });
+    res.cookie('authorization', accessToken, {
+      maxAge: 3600,
+      httpOnly: true
+    });
+
+    return res.json({ accessToken });  
+  } catch (error) {
+    return res.status(401).json({error});
+  }
+  
 });
 
 router.post('/signup', async function (req, res) {
@@ -62,15 +75,9 @@ router.post('/signup', async function (req, res) {
   res.status(201).json(rows[0]);
 });
 
-router.get('/logout', function (req, res, next) {
-  req.session.destroy((error) => {
-    if (error) {
-      return next(error);
-    }
-    res.clearCookie('connect.sid');
-
-    res.redirect('/');
-  });
+router.post('/logout', function (req, res) {
+  res.clearCookie('authorization');
+  res.redirect('/');
 });
 
 module.exports = router;

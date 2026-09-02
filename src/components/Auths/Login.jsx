@@ -1,46 +1,38 @@
-import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 import '../../styles/Login.css';
 
 function Login() {
-  const [loginCheck, setLoginCheck] = useState(false);
-  const userId = useRef();
-  const password = useRef();
-
-  const loginHandler = async (event) => {
+  const navigate = useNavigate();
+  async function loginHandler(event) {
     event.preventDefault();
 
-    const enteredUserId = userId.current.value;
-    const enteredPassword = password.current.value;
-    let response;
-    try {
-      response = await fetch('http://localhost:3000', {
-        method: 'POST',
-        body: JSON.stringify({
-          userid: enteredUserId,
-          password: enteredPassword
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-    } catch (error) {
-      throw new Error({ message: error });
-    }
+    const response = await fetch('http://localhost:3000/login', {
+      method:'POST',
+      body: JSON.stringify({
+        userid: event.target.userid.value,
+        password: event.target.password.value
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
-    if(response.status === 200) {
+    const resData = await response.json();
+    if(resData.accessToken) {
+      sessionStorage.setItem('accessToken', resData.accessToken);
 
+      navigate('/');
     }
+    
   }
-
   return (
     <>
       <div className="login-page">
         <div className="login-box">
           <h1 className="logo">Mzip</h1>
           <h2 className="title">로그인</h2>
-          <form>
+          <form onSubmit={loginHandler}>
             <div className="input-group">
               <label htmlFor="userid">아이디</label>
               <input
@@ -48,7 +40,6 @@ function Login() {
                 id="userid"
                 name="userid"
                 placeholder="아이디를 입력하세요"
-                ref={userId}
               />
             </div>
             <div className="input-group">
@@ -58,7 +49,6 @@ function Login() {
                 id="password"
                 name="password"
                 placeholder="비밀번호를 입력하세요"
-                ref={password}
               />
             </div>
             <div className="signup-link">
